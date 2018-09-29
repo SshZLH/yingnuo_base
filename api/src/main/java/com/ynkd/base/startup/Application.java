@@ -18,9 +18,9 @@ public class Application {
     private static final Logger logger= LoggerFactory.getLogger(Application.class);
 
     public static void main(String[] args) throws Exception {
-        logger.info("----com.wanhuchina.base api begin start up------");
+        logger.info("----com.yingnuo.base api begin start up------");
         SpringApplication.run(Application.class, args);
-        logger.info("----com.wanhuchina.base api started up success------");
+        logger.info("----com.yingnuo.base api started up success------");
     }
 
 }

@@ -12,10 +12,10 @@
 	
 	<!-- 演示按时间滚动的策略 -->
   	<appender name="dailyRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<File>logs/wanhuchina-base-service.log</File>
+		<File>/yingnuo/logs/yingnuo-base-service.log</File>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 		    <!-- daily rollover -->
-			<FileNamePattern>logs/wanhuchina-base-service.%d{yyyy-MM-dd}.log</FileNamePattern>
+			<FileNamePattern>/yingnuo/logs/yingnuo-base-service.%d{yyyy-MM-dd}.log</FileNamePattern>
 			<!-- 保留 30天数据，默认无限-->
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>
