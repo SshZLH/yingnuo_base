@@ -361,11 +361,11 @@
             </dependency>
 
             <!--Excel  POI-->
-            <dependency>
+        <!--    <dependency>
                 <groupId>org.apache.poi</groupId>
                 <artifactId>poi</artifactId>
                 <version>${POI.version}</version>
-            </dependency>
+            </dependency>-->
             <!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
             <dependency>
                 <groupId>io.netty</groupId>
