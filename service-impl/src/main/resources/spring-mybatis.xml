@@ -77,6 +77,17 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="mapperLocations">
             <array>
+                <value>classpath*:com/ynkd/base/dao/alarm/mapper/AlarmContactDAO.xml</value>
+                <value>classpath*:com/ynkd/base/dao/alarm/mapper/AlarmDAO.xml</value>
+                <value>classpath*:com/ynkd/base/dao/alarm/mapper/ContactGroupDAO.xml</value>
+                <value>classpath*:com/ynkd/base/dao/business/mapper/AreaDAO.xml</value>
+                <value>classpath*:com/ynkd/base/dao/business/mapper/ProjectDAO.xml</value>
+                <value>classpath*:com/ynkd/base/dao/business/mapper/PlaceDAO.xml</value>
+                <value>classpath*:com/ynkd/base/dao/device/mapper/DeviceDAO.xml</value>
+                <value>classpath*:com/ynkd/base/dao/device/mapper/FirmwareDAO.xml</value>
+                <value>classpath*:com/ynkd/base/dao/device/mapper/GatewayDAO.xml</value>
+                <value>classpath*:com/ynkd/base/dao/log/mapper/SysOperationLogContentDAO.xml</value>
+                <value>classpath*:com/ynkd/base/dao/log/mapper/SysOperationLogDAO.xml</value>
             </array>
         </property>
         <property name="plugins">

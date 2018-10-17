@@ -19,4 +19,5 @@
     <dubbo:application name="dubbo-wanhuchina-base-consumer"/>
     <dubbo:registry protocol="zookeeper" address="${zk.address}" check="false" />
     <!-- 消费服务 -->
+    <dubbo:reference id="healthService" interface="com.ynkd.base.service.base.HealthService"/>
 </beans>

@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ynkd.base.dao.device.DeviceDAO">
+  <resultMap id="BaseResultMap" type="com.ynkd.base.model.device.Device">
+    <id column="device_id" jdbcType="VARCHAR" property="deviceId" />
+    <result column="device_name" jdbcType="VARCHAR" property="deviceName" />
+    <result column="device_type" jdbcType="INTEGER" property="deviceType" />
+    <result column="device_no" jdbcType="VARCHAR" property="deviceNo" />
+    <result column="device_status" jdbcType="INTEGER" property="deviceStatus" />
+    <result column="device_version" jdbcType="VARCHAR" property="deviceVersion" />
+    <result column="device_addr" jdbcType="VARCHAR" property="deviceAddr" />
+    <result column="device_location" jdbcType="VARCHAR" property="deviceLocation" />
+    <result column="device_memo" jdbcType="VARCHAR" property="deviceMemo" />
+    <result column="device_supplier" jdbcType="VARCHAR" property="deviceSupplier" />
+    <result column="device_start_time" jdbcType="VARCHAR" property="deviceStartTime" />
+    <result column="device_end_time" jdbcType="VARCHAR" property="deviceEndTime" />
+    <result column="device_numerical" jdbcType="VARCHAR" property="deviceNumerical" />
+    <result column="device_unit" jdbcType="VARCHAR" property="deviceUnit" />
+    <result column="device_threshold" jdbcType="VARCHAR" property="deviceThreshold" />
+    <result column="device_level" jdbcType="INTEGER" property="deviceLevel" />
+    <result column="network_now" jdbcType="INTEGER" property="networkNow" />
+    <result column="father_id" jdbcType="VARCHAR" property="fatherId" />
+    <result column="create_at" jdbcType="VARCHAR" property="createAt" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_at" jdbcType="VARCHAR" property="updateAt" />
+    <result column="gateway_id" jdbcType="VARCHAR" property="gatewayId" />
+    <result column="firmware_id" jdbcType="VARCHAR" property="firmwareId" />
+    <result column="place_id" jdbcType="VARCHAR" property="placeId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    device_id, device_name, device_type, device_no, device_status, device_version, device_addr, 
+    device_location, device_memo, device_supplier, device_start_time, device_end_time, 
+    device_numerical, device_unit, device_threshold, device_level, network_now, father_id, 
+    create_at, create_by, update_by, update_at, gateway_id, firmware_id, place_id
+  </sql>
+  <select id="selectByExample" parameterType="com.ynkd.base.model.device.DeviceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from device
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from device
+    where device_id = #{deviceId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from device
+    where device_id = #{deviceId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ynkd.base.model.device.DeviceExample">
+    delete from device
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ynkd.base.model.device.Device">
+    insert into device (device_id, device_name, device_type, 
+      device_no, device_status, device_version, 
+      device_addr, device_location, device_memo, 
+      device_supplier, device_start_time, device_end_time, 
+      device_numerical, device_unit, device_threshold, 
+      device_level, network_now, father_id, 
+      create_at, create_by, update_by, 
+      update_at, gateway_id, firmware_id, 
+      place_id)
+    values (#{deviceId,jdbcType=VARCHAR}, #{deviceName,jdbcType=VARCHAR}, #{deviceType,jdbcType=INTEGER}, 
+      #{deviceNo,jdbcType=VARCHAR}, #{deviceStatus,jdbcType=INTEGER}, #{deviceVersion,jdbcType=VARCHAR}, 
+      #{deviceAddr,jdbcType=VARCHAR}, #{deviceLocation,jdbcType=VARCHAR}, #{deviceMemo,jdbcType=VARCHAR}, 
+      #{deviceSupplier,jdbcType=VARCHAR}, #{deviceStartTime,jdbcType=VARCHAR}, #{deviceEndTime,jdbcType=VARCHAR}, 
+      #{deviceNumerical,jdbcType=VARCHAR}, #{deviceUnit,jdbcType=VARCHAR}, #{deviceThreshold,jdbcType=VARCHAR}, 
+      #{deviceLevel,jdbcType=INTEGER}, #{networkNow,jdbcType=INTEGER}, #{fatherId,jdbcType=VARCHAR}, 
+      #{createAt,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, #{updateBy,jdbcType=VARCHAR}, 
+      #{updateAt,jdbcType=VARCHAR}, #{gatewayId,jdbcType=VARCHAR}, #{firmwareId,jdbcType=VARCHAR}, 
+      #{placeId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ynkd.base.model.device.Device">
+    insert into device
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="deviceId != null">
+        device_id,
+      </if>
+      <if test="deviceName != null">
+        device_name,
+      </if>
+      <if test="deviceType != null">
+        device_type,
+      </if>
+      <if test="deviceNo != null">
+        device_no,
+      </if>
+      <if test="deviceStatus != null">
+        device_status,
+      </if>
+      <if test="deviceVersion != null">
+        device_version,
+      </if>
+      <if test="deviceAddr != null">
+        device_addr,
+      </if>
+      <if test="deviceLocation != null">
+        device_location,
+      </if>
+      <if test="deviceMemo != null">
+        device_memo,
+      </if>
+      <if test="deviceSupplier != null">
+        device_supplier,
+      </if>
+      <if test="deviceStartTime != null">
+        device_start_time,
+      </if>
+      <if test="deviceEndTime != null">
+        device_end_time,
+      </if>
+      <if test="deviceNumerical != null">
+        device_numerical,
+      </if>
+      <if test="deviceUnit != null">
+        device_unit,
+      </if>
+      <if test="deviceThreshold != null">
+        device_threshold,
+      </if>
+      <if test="deviceLevel != null">
+        device_level,
+      </if>
+      <if test="networkNow != null">
+        network_now,
+      </if>
+      <if test="fatherId != null">
+        father_id,
+      </if>
+      <if test="createAt != null">
+        create_at,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateAt != null">
+        update_at,
+      </if>
+      <if test="gatewayId != null">
+        gateway_id,
+      </if>
+      <if test="firmwareId != null">
+        firmware_id,
+      </if>
+      <if test="placeId != null">
+        place_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="deviceId != null">
+        #{deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceName != null">
+        #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceType != null">
+        #{deviceType,jdbcType=INTEGER},
+      </if>
+      <if test="deviceNo != null">
+        #{deviceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceStatus != null">
+        #{deviceStatus,jdbcType=INTEGER},
+      </if>
+      <if test="deviceVersion != null">
+        #{deviceVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceAddr != null">
+        #{deviceAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceLocation != null">
+        #{deviceLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceMemo != null">
+        #{deviceMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceSupplier != null">
+        #{deviceSupplier,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceStartTime != null">
+        #{deviceStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceEndTime != null">
+        #{deviceEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceNumerical != null">
+        #{deviceNumerical,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceUnit != null">
+        #{deviceUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceThreshold != null">
+        #{deviceThreshold,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceLevel != null">
+        #{deviceLevel,jdbcType=INTEGER},
+      </if>
+      <if test="networkNow != null">
+        #{networkNow,jdbcType=INTEGER},
+      </if>
+      <if test="fatherId != null">
+        #{fatherId,jdbcType=VARCHAR},
+      </if>
+      <if test="createAt != null">
+        #{createAt,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateAt != null">
+        #{updateAt,jdbcType=VARCHAR},
+      </if>
+      <if test="gatewayId != null">
+        #{gatewayId,jdbcType=VARCHAR},
+      </if>
+      <if test="firmwareId != null">
+        #{firmwareId,jdbcType=VARCHAR},
+      </if>
+      <if test="placeId != null">
+        #{placeId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ynkd.base.model.device.DeviceExample" resultType="java.lang.Long">
+    select count(*) from device
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update device
+    <set>
+      <if test="record.deviceId != null">
+        device_id = #{record.deviceId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceName != null">
+        device_name = #{record.deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceType != null">
+        device_type = #{record.deviceType,jdbcType=INTEGER},
+      </if>
+      <if test="record.deviceNo != null">
+        device_no = #{record.deviceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceStatus != null">
+        device_status = #{record.deviceStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.deviceVersion != null">
+        device_version = #{record.deviceVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceAddr != null">
+        device_addr = #{record.deviceAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceLocation != null">
+        device_location = #{record.deviceLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceMemo != null">
+        device_memo = #{record.deviceMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceSupplier != null">
+        device_supplier = #{record.deviceSupplier,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceStartTime != null">
+        device_start_time = #{record.deviceStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceEndTime != null">
+        device_end_time = #{record.deviceEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceNumerical != null">
+        device_numerical = #{record.deviceNumerical,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceUnit != null">
+        device_unit = #{record.deviceUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceThreshold != null">
+        device_threshold = #{record.deviceThreshold,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deviceLevel != null">
+        device_level = #{record.deviceLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.networkNow != null">
+        network_now = #{record.networkNow,jdbcType=INTEGER},
+      </if>
+      <if test="record.fatherId != null">
+        father_id = #{record.fatherId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createAt != null">
+        create_at = #{record.createAt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createBy != null">
+        create_by = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateBy != null">
+        update_by = #{record.updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateAt != null">
+        update_at = #{record.updateAt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gatewayId != null">
+        gateway_id = #{record.gatewayId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.firmwareId != null">
+        firmware_id = #{record.firmwareId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.placeId != null">
+        place_id = #{record.placeId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update device
+    set device_id = #{record.deviceId,jdbcType=VARCHAR},
+      device_name = #{record.deviceName,jdbcType=VARCHAR},
+      device_type = #{record.deviceType,jdbcType=INTEGER},
+      device_no = #{record.deviceNo,jdbcType=VARCHAR},
+      device_status = #{record.deviceStatus,jdbcType=INTEGER},
+      device_version = #{record.deviceVersion,jdbcType=VARCHAR},
+      device_addr = #{record.deviceAddr,jdbcType=VARCHAR},
+      device_location = #{record.deviceLocation,jdbcType=VARCHAR},
+      device_memo = #{record.deviceMemo,jdbcType=VARCHAR},
+      device_supplier = #{record.deviceSupplier,jdbcType=VARCHAR},
+      device_start_time = #{record.deviceStartTime,jdbcType=VARCHAR},
+      device_end_time = #{record.deviceEndTime,jdbcType=VARCHAR},
+      device_numerical = #{record.deviceNumerical,jdbcType=VARCHAR},
+      device_unit = #{record.deviceUnit,jdbcType=VARCHAR},
+      device_threshold = #{record.deviceThreshold,jdbcType=VARCHAR},
+      device_level = #{record.deviceLevel,jdbcType=INTEGER},
+      network_now = #{record.networkNow,jdbcType=INTEGER},
+      father_id = #{record.fatherId,jdbcType=VARCHAR},
+      create_at = #{record.createAt,jdbcType=VARCHAR},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      update_by = #{record.updateBy,jdbcType=VARCHAR},
+      update_at = #{record.updateAt,jdbcType=VARCHAR},
+      gateway_id = #{record.gatewayId,jdbcType=VARCHAR},
+      firmware_id = #{record.firmwareId,jdbcType=VARCHAR},
+      place_id = #{record.placeId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ynkd.base.model.device.Device">
+    update device
+    <set>
+      <if test="deviceName != null">
+        device_name = #{deviceName,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceType != null">
+        device_type = #{deviceType,jdbcType=INTEGER},
+      </if>
+      <if test="deviceNo != null">
+        device_no = #{deviceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceStatus != null">
+        device_status = #{deviceStatus,jdbcType=INTEGER},
+      </if>
+      <if test="deviceVersion != null">
+        device_version = #{deviceVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceAddr != null">
+        device_addr = #{deviceAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceLocation != null">
+        device_location = #{deviceLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceMemo != null">
+        device_memo = #{deviceMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceSupplier != null">
+        device_supplier = #{deviceSupplier,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceStartTime != null">
+        device_start_time = #{deviceStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceEndTime != null">
+        device_end_time = #{deviceEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceNumerical != null">
+        device_numerical = #{deviceNumerical,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceUnit != null">
+        device_unit = #{deviceUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceThreshold != null">
+        device_threshold = #{deviceThreshold,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceLevel != null">
+        device_level = #{deviceLevel,jdbcType=INTEGER},
+      </if>
+      <if test="networkNow != null">
+        network_now = #{networkNow,jdbcType=INTEGER},
+      </if>
+      <if test="fatherId != null">
+        father_id = #{fatherId,jdbcType=VARCHAR},
+      </if>
+      <if test="createAt != null">
+        create_at = #{createAt,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateAt != null">
+        update_at = #{updateAt,jdbcType=VARCHAR},
+      </if>
+      <if test="gatewayId != null">
+        gateway_id = #{gatewayId,jdbcType=VARCHAR},
+      </if>
+      <if test="firmwareId != null">
+        firmware_id = #{firmwareId,jdbcType=VARCHAR},
+      </if>
+      <if test="placeId != null">
+        place_id = #{placeId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where device_id = #{deviceId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ynkd.base.model.device.Device">
+    update device
+    set device_name = #{deviceName,jdbcType=VARCHAR},
+      device_type = #{deviceType,jdbcType=INTEGER},
+      device_no = #{deviceNo,jdbcType=VARCHAR},
+      device_status = #{deviceStatus,jdbcType=INTEGER},
+      device_version = #{deviceVersion,jdbcType=VARCHAR},
+      device_addr = #{deviceAddr,jdbcType=VARCHAR},
+      device_location = #{deviceLocation,jdbcType=VARCHAR},
+      device_memo = #{deviceMemo,jdbcType=VARCHAR},
+      device_supplier = #{deviceSupplier,jdbcType=VARCHAR},
+      device_start_time = #{deviceStartTime,jdbcType=VARCHAR},
+      device_end_time = #{deviceEndTime,jdbcType=VARCHAR},
+      device_numerical = #{deviceNumerical,jdbcType=VARCHAR},
+      device_unit = #{deviceUnit,jdbcType=VARCHAR},
+      device_threshold = #{deviceThreshold,jdbcType=VARCHAR},
+      device_level = #{deviceLevel,jdbcType=INTEGER},
+      network_now = #{networkNow,jdbcType=INTEGER},
+      father_id = #{fatherId,jdbcType=VARCHAR},
+      create_at = #{createAt,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_at = #{updateAt,jdbcType=VARCHAR},
+      gateway_id = #{gatewayId,jdbcType=VARCHAR},
+      firmware_id = #{firmwareId,jdbcType=VARCHAR},
+      place_id = #{placeId,jdbcType=VARCHAR}
+    where device_id = #{deviceId,jdbcType=VARCHAR}
+  </update>
+</mapper>
