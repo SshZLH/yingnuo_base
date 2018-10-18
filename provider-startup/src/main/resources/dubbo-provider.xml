@@ -7,12 +7,13 @@
        default-lazy-init="false">
     <import resource="classpath:spring-service.xml"/>
     <!-- 提供方应用名称信息，这个相当于起一个名字，我们dubbo管理页面比较清晰是哪个应用暴露出来的 -->
-    <dubbo:application name="dubbo-wanhuchina-base-provider"></dubbo:application>
+    <dubbo:application name="dubbo-yingnuo-base-provider"></dubbo:application>
     <dubbo:provider delay="-1" timeout="30000" retries="0"/>
     <!-- 使用zookeeper注册中心暴露服务地址 -->
     <dubbo:registry protocol="zookeeper" address="${zk.address}" check="false" />
     <!--监控-->
     <!--<dubbo:monitor address="${dubbo.monitor}"></dubbo:monitor>-->
     <!-- 要暴露的服务接口 -->
-    <dubbo:protocol name="dubbo" port="20880" />
+    <dubbo:protocol name="dubbo" port="20881" />
+    <dubbo:service ref="healthService" interface="com.ynkd.base.service.base.HealthService" />
 </beans>

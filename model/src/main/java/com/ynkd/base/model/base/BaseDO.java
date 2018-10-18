@@ -1,4 +1,4 @@
-package com.wanhuchina.base.model.base;
+package com.ynkd.base.model.base;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
