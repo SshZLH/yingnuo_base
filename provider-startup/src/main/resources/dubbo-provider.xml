@@ -16,4 +16,12 @@
     <!-- 要暴露的服务接口 -->
     <dubbo:protocol name="dubbo" port="20881" />
     <dubbo:service ref="healthService" interface="com.ynkd.base.service.base.HealthService" />
+    <!--报警管理-->
+    <dubbo:service ref="alarmService" interface="com.ynkd.base.service.alarm.AlarmService" />
+    <dubbo:service ref="contactGroupService" interface="com.ynkd.base.service.alarm.ContactGroupService" />
+    <dubbo:service ref="contactService" interface="com.ynkd.base.service.alarm.ContactService" />
+    <!--设备管理-->
+    <dubbo:service ref="gatewayService" interface="com.ynkd.base.service.device.GatewayService" />
+    <dubbo:service ref="firmwareService" interface="com.ynkd.base.service.device.FirmwareService" />
+    <dubbo:service ref="deviceService" interface="com.ynkd.base.service.device.DeviceService" />
 </beans>
