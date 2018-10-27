@@ -1,0 +1,677 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ynkd.base.dao.user.UserDAO">
+  <resultMap id="BaseResultMap" type="com.ynkd.base.model.user.User">
+    <id column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="project_id" jdbcType="VARCHAR" property="projectId" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="openId" jdbcType="VARCHAR" property="openid" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="is_delete" jdbcType="INTEGER" property="isDelete" />
+    <result column="create_at" jdbcType="BIGINT" property="createAt" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="update_at" jdbcType="BIGINT" property="updateAt" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    user_id, role_id, project_id, username, `password`, nick_name, openId, tel, `status`, 
+    is_delete, create_at, create_by, update_at, update_by
+  </sql>
+  <select id="selectByExample" parameterType="com.ynkd.base.dao.user.UserExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from user
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ynkd.base.dao.user.UserExample">
+    delete from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ynkd.base.model.user.User">
+    insert into user (user_id, role_id, project_id, 
+      username, `password`, nick_name, 
+      openId, tel, `status`, 
+      is_delete, create_at, create_by, 
+      update_at, update_by)
+    values (#{userId,jdbcType=VARCHAR}, #{roleId,jdbcType=INTEGER}, #{projectId,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, 
+      #{openid,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{isDelete,jdbcType=INTEGER}, #{createAt,jdbcType=BIGINT}, #{createBy,jdbcType=VARCHAR}, 
+      #{updateAt,jdbcType=BIGINT}, #{updateBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ynkd.base.model.user.User">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="projectId != null">
+        project_id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        `password`,
+      </if>
+      <if test="nickName != null">
+        nick_name,
+      </if>
+      <if test="openid != null">
+        openId,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createAt != null">
+        create_at,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateAt != null">
+        update_at,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null">
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createAt != null">
+        #{createAt,jdbcType=BIGINT},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateAt != null">
+        #{updateAt,jdbcType=BIGINT},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ynkd.base.dao.user.UserExample" resultType="java.lang.Long">
+    select count(*) from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update user
+    <set>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roleId != null">
+        role_id = #{record.roleId,jdbcType=INTEGER},
+      </if>
+      <if test="record.projectId != null">
+        project_id = #{record.projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        `password` = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickName != null">
+        nick_name = #{record.nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openid != null">
+        openId = #{record.openid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tel != null">
+        tel = #{record.tel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        `status` = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.isDelete != null">
+        is_delete = #{record.isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="record.createAt != null">
+        create_at = #{record.createAt,jdbcType=BIGINT},
+      </if>
+      <if test="record.createBy != null">
+        create_by = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateAt != null">
+        update_at = #{record.updateAt,jdbcType=BIGINT},
+      </if>
+      <if test="record.updateBy != null">
+        update_by = #{record.updateBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update user
+    set user_id = #{record.userId,jdbcType=VARCHAR},
+      role_id = #{record.roleId,jdbcType=INTEGER},
+      project_id = #{record.projectId,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR},
+      `password` = #{record.password,jdbcType=VARCHAR},
+      nick_name = #{record.nickName,jdbcType=VARCHAR},
+      openId = #{record.openid,jdbcType=VARCHAR},
+      tel = #{record.tel,jdbcType=VARCHAR},
+      `status` = #{record.status,jdbcType=INTEGER},
+      is_delete = #{record.isDelete,jdbcType=INTEGER},
+      create_at = #{record.createAt,jdbcType=BIGINT},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      update_at = #{record.updateAt,jdbcType=BIGINT},
+      update_by = #{record.updateBy,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ynkd.base.model.user.User">
+    update user
+    <set>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="projectId != null">
+        project_id = #{projectId,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        `password` = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null">
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null">
+        openId = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createAt != null">
+        create_at = #{createAt,jdbcType=BIGINT},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateAt != null">
+        update_at = #{updateAt,jdbcType=BIGINT},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ynkd.base.model.user.User">
+    update user
+    set role_id = #{roleId,jdbcType=INTEGER},
+      project_id = #{projectId,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      `password` = #{password,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      openId = #{openid,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=INTEGER},
+      create_at = #{createAt,jdbcType=BIGINT},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      update_at = #{updateAt,jdbcType=BIGINT},
+      update_by = #{updateBy,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+
+
+
+    <!--  shiro 权限模块  - author @Mind      10.27     start-->
+
+
+    <select id="getUser" resultType="com.alibaba.fastjson.JSONObject">
+    SELECT
+    u.user_id userId,
+    u.user_name username,
+    u.password password,
+    u.nick_name nickName,
+    u.status status
+    FROM
+    user u
+    WHERE u.user_name = #{username}
+    AND u.password = #{password}
+    AND u.is_delete='1'
+  </select>
+
+    <select id="countUser" resultType="java.lang.Integer">
+    SELECT count(0)
+    FROM user u
+    WHERE u.is_delete = '1'
+  </select>
+
+
+    <resultMap id="userMap" type="com.wanhuchina.base.storage.dao.shiro.One2Many">
+        <id column="userId" property="userId"/>
+        <result column="username" property="username"/>
+        <result column="nickname" property="nickname"/>
+        <result column="roleId" property="roleId"/>
+        <result column="roleName" property="roleName"/>
+        <result column="createTime" property="createTime"/>
+        <result column="updateTime" property="updateTime"/>
+        <result column="lastLoginTime" property="lastLoginTime"/>
+        <result column="deleteStatus" property="deleteStatus"/>
+        <collection property="permissionList" ofType="String">
+            <id column="permissionName" property="permissionName"/>
+        </collection>
+    </resultMap>
+    <select id="listUser" resultMap="userMap">
+    SELECT
+    u.*,
+    r.role_name                            roleName,
+    CONCAT(p.menu_name, p.permission_name) permissionName
+    FROM (
+    SELECT
+    user_id                             userId,
+    user_name                           username,
+    nick_name                           nickname,
+    role_id                             roleId,
+    is_delete                           deleteStatus,
+    create_at                           createTime,
+    update_at                           updateTime
+    FROM user
+    WHERE is_delete = '1'
+    ORDER BY create_at
+    LIMIT #{offSet}, #{pageRow}
+    ) u
+    inner JOIN sys_role r ON r.id = u.roleId and r.id != '1'
+    LEFT JOIN sys_role_permission rp ON rp.role_id = r.id
+    LEFT JOIN sys_permission p ON p.id = rp.permission_id
+    ORDER BY u.userId
+  </select>
+
+    <select id="listUserByAdmin" resultMap="userMap">
+    SELECT
+    u.*,
+    r.role_name                            roleName,
+    CONCAT(p.menu_name, p.permission_name) permissionName
+    FROM (
+    SELECT
+    user_id                             userId,
+    user_name                           username,
+    nick_name                           nickname,
+    role_id                             roleId,
+    is_delete                           deleteStatus,
+    create_at                           createTime,
+    update_at                           updateTime
+    FROM user
+    WHERE is_delete = '1'
+    ORDER BY create_at
+    LIMIT #{offSet}, #{pageRow}
+    ) u
+    LEFT JOIN sys_role r ON r.id = u.roleId
+    LEFT JOIN sys_role_permission rp ON rp.role_id = r.id
+    LEFT JOIN sys_permission p ON p.id = rp.permission_id
+    ORDER BY u.userId
+  </select>
+
+
+
+
+
+    <select id="getAllRolesByAdmin" resultType="com.alibaba.fastjson.JSONObject">
+    SELECT
+    id        roleId,
+    role_name roleName
+    FROM sys_role
+    WHERE delete_status='1'
+  </select>
+
+    <select id="getAllRoles" resultType="com.alibaba.fastjson.JSONObject">
+    SELECT
+    id        roleId,
+    role_name roleName
+    FROM sys_role
+    WHERE delete_status='1' and id != '1'
+  </select>
+
+
+    <select id="queryExistUsername" resultType="java.lang.Integer">
+    select count(0)
+    from user
+    WHERE user_name=#{username}
+    AND is_delete='1';
+  </select>
+
+    <insert id="addUser" useGeneratedKeys="true" keyProperty="userId">
+    INSERT INTO sys_user
+    (user_name, password, nick_name, role_id, tel,user_id) VALUES
+    (#{username}, #{password}, #{nickname}, #{roleId}, #{tel}, #{userId})
+  </insert>
+    <update id="updateUser">
+        UPDATE user
+        SET
+        nick_name = #{nickname}
+        <if test="password !='' and password !=null">
+            , password = #{password}
+        </if>
+        , role_id = #{roleId}
+        , is_delete = #{deleteStatus}
+        , update_at = #{updateAt}
+        WHERE user_id = #{userId}
+    </update>
+
+    <!-- 根据用户ID和姓名检索用户信息 -->
+    <select id="selectByIdAndUserName" resultMap="BaseResultMap">
+        select *
+        from user
+        <where>
+            <if test="userId != null and userId != '' ">
+                user_id = #{userId}
+            </if>
+            <if test="username != null and username != '' ">
+                and user_name like CONCAT('%', #{username}, '%')
+            </if>
+            and is_delete = 1
+        </where>
+        order by create_at desc
+    </select>
+    <resultMap id="UserBaseResultMap" type="com.wanhuchina.base.storage.model.vo.UserBaseVo">
+        <id column="user_id" jdbcType="VARCHAR" property="userId" />
+        <result column="user_name" jdbcType="VARCHAR" property="userName" />
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    </resultMap>
+    <select id="selectUserBaseList" resultMap="UserBaseResultMap">
+        select
+          user_id,
+          user_name,
+          nick_name
+        from user
+        where is_delete = '1'
+    </select>
+
+
+
+    <resultMap id="roleMap" type="com.wanhuchina.base.storage.dao.shiro.One2Many">
+        <id column="roleId" property="roleId"/>
+        <result column="roleName" property="roleName"/>
+        <collection property="users" ofType="com.alibaba.fastjson.JSONObject">
+            <id column="userId" property="userId"/>
+            <result column="nickname" property="nickname"/>
+        </collection>
+        <collection property="menus" ofType="com.wanhuchina.base.storage.dao.shiro.One2Many">
+            <id column="menuCode" property="menuCode"/>
+            <result column="menuName" property="menuName"/>
+            <collection property="permissions" ofType="com.alibaba.fastjson.JSONObject">
+                <id column="permissionId" property="permissionId"/>
+                <result column="permissionName" property="permissionName"/>
+            </collection>
+        </collection>
+    </resultMap>
+    <select id="listRoleByAdmin" resultMap="roleMap">
+    SELECT
+    r.id              roleId,
+    r.role_name       roleName,
+    u.user_id         userId,
+    u.nick_name       nickname,
+    p.id              permissionId,
+    p.menu_code       menuCode,
+    p.menu_name       menuName,
+    p.permission_name permissionName
+    FROM sys_role r
+    LEFT JOIN user u ON r.id = u.role_id AND u.is_delete = '1'
+    LEFT JOIN sys_role_permission rp ON r.id = rp.role_id AND rp.delete_status = '1'
+    LEFT JOIN sys_permission p ON rp.permission_id = p.id
+    WHERE r.delete_status = '1'
+    ORDER BY r.id, p.id
+  </select>
+
+
+    <select id="listRole" resultMap="roleMap">
+    SELECT
+    r.id              roleId,
+    r.role_name       roleName,
+    u.user_id         userId,
+    u.nick_name       nickname,
+    p.id              permissionId,
+    p.menu_code       menuCode,
+    p.menu_name       menuName,
+    p.permission_name permissionName
+    FROM sys_role r
+    LEFT JOIN user u ON r.id = u.role_id AND u.is_delete = '1'
+    LEFT JOIN sys_role_permission rp ON r.id = rp.role_id AND rp.delete_status = '1'
+    LEFT JOIN sys_permission p ON rp.permission_id = p.id
+    WHERE r.delete_status = '1' and r.id != '1'
+    ORDER BY r.id, p.id
+  </select>
+
+    <resultMap id="permissionMap" type="com.wanhuchina.base.storage.dao.shiro.One2Many">
+        <id column="menuName" property="menuName"/>
+        <collection property="permissions" ofType="com.alibaba.fastjson.JSONObject">
+            <id column="id" property="id"/>
+            <result column="permissionName" property="permissionName"/>
+            <result column="requiredPerm" property="requiredPerm" javaType="Integer"/>
+        </collection>
+    </resultMap>
+
+    <select id="listAllPermissionByAdmin" resultMap="permissionMap">
+    SELECT
+    p.id                  id,
+    p.menu_name           menuName,
+    p.permission_name     permissionName,
+    p.required_permission requiredPerm
+    FROM sys_permission p
+    where p.delete_status = '1';
+  </select>
+    <select id="listAllPermission" resultMap="permissionMap">
+    SELECT
+    p.id                  id,
+    p.menu_name           menuName,
+    p.permission_name     permissionName,
+    p.required_permission requiredPerm
+    FROM sys_permission p
+   where p.menu_name !='角色权限' and p.delete_status = '1';
+  </select>
+    <insert id="insertRole" useGeneratedKeys="true" keyProperty="roleId">
+    INSERT INTO sys_role
+    (role_name)
+    VALUES (#{roleName})
+  </insert>
+    <insert id="insertRolePermission">
+        insert into sys_role_permission (role_id, permission_id)
+        values
+        <foreach collection="permissions" item="item" index="index" separator=",">
+            (#{roleId}, #{item})
+        </foreach>
+    </insert>
+    <update id="removeOldPermission">
+        UPDATE sys_role_permission
+        SET
+        delete_status = '2'
+        WHERE role_id = #{roleId}
+        AND permission_id in (
+        <foreach collection="permissions" item="item" index="index" separator=",">
+            #{item}
+        </foreach>
+        )
+    </update>
+    <update id="updateRoleName">
+    UPDATE sys_role
+    SET
+    role_name = #{roleName}
+    WHERE id = #{roleId}
+  </update>
+
+
+    <resultMap id="aRole" type="com.ynkd.base.dao.shiro.One2Many">
+        <id column="roleId" property="roleId"/>
+        <result column="roleName" property="roleName"/>
+        <collection property="users" ofType="com.alibaba.fastjson.JSONObject">
+            <id column="userId" property="userId"/>
+        </collection>
+        <collection property="permissionIds" ofType="Integer">
+            <id column="permissionId" property="permissionId"/>
+        </collection>
+    </resultMap>
+    <select id="getRoleAllInfo" resultMap="aRole">
+    SELECT
+    r.id        roleId,
+    r.role_name roleName,
+    u.user_id        userId,
+    p.id        permissionId
+    FROM sys_role r
+    LEFT JOIN user u ON r.id = u.role_id AND u.is_delete = '1'
+    LEFT JOIN sys_role_permission rp ON r.id = rp.role_id AND rp.delete_status = '1'
+    LEFT JOIN sys_permission p ON rp.permission_id = p.id
+    WHERE r.id = #{roleId}
+  </select>
+
+    <update id="removeRole">
+    UPDATE sys_role
+    SET
+    delete_status = '2'
+    WHERE id = #{roleId}
+  </update>
+    <update id="removeRoleAllPermission">
+    UPDATE sys_role_permission
+    SET
+    delete_status = '2'
+    WHERE role_id = #{roleId}
+  </update>
+
+
+</mapper>
