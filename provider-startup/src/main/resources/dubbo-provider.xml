@@ -24,4 +24,9 @@
     <dubbo:service ref="gatewayService" interface="com.ynkd.base.service.device.GatewayService" />
     <dubbo:service ref="firmwareService" interface="com.ynkd.base.service.device.FirmwareService" />
     <dubbo:service ref="deviceService" interface="com.ynkd.base.service.device.DeviceService" />
+
+    <!--shiro module -  @author Mind  -  @Date 10.25 -->
+    <dubbo:service ref="baseUserService" interface="com.ynkd.base.service.shiro.BaseUserService" />
+    <dubbo:service ref="basePermissionService" interface="com.ynkd.base.service.shiro.BasePermissionService" />
+    <dubbo:service ref="baseLoginService" interface="com.ynkd.base.service.shiro.BaseLoginService" />
 </beans>

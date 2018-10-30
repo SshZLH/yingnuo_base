@@ -26,7 +26,7 @@
   	</appender>
 	<!--日志级别-->
 	<root>
-		<level value="DEBUG" />
+		<level value="info" />
 		<appender-ref ref="consoleAppender" />
 		<appender-ref ref="dailyRollingFileAppender"/>
 	</root>
