@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface AreaDAO extends MyBatisBaseDao<Area, String, AreaExample> {
+
 }

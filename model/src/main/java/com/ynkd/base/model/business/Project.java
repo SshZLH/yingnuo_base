@@ -10,7 +10,7 @@ public class Project implements Serializable {
     /**
      *  项目ID
      */
-    private Integer projectId;
+    private String projectId;
 
     /**
      * 项目名称
@@ -18,7 +18,23 @@ public class Project implements Serializable {
     private String projectName;
 
     /**
-     * 项目地址
+     * 省份ID
+     */
+    private String provincialId;
+
+    /**
+     * 市区ID
+
+     */
+    private String cityId;
+
+    /**
+     * 区域ID
+     */
+    private String areaId;
+
+    /**
+     * 详细地址
      */
     private String projectAddr;
 
@@ -79,11 +95,11 @@ public class Project implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getProjectId() {
+    public String getProjectId() {
         return projectId;
     }
 
-    public void setProjectId(Integer projectId) {
+    public void setProjectId(String projectId) {
         this.projectId = projectId;
     }
 
@@ -93,6 +109,30 @@ public class Project implements Serializable {
 
     public void setProjectName(String projectName) {
         this.projectName = projectName;
+    }
+
+    public String getProvincialId() {
+        return provincialId;
+    }
+
+    public void setProvincialId(String provincialId) {
+        this.provincialId = provincialId;
+    }
+
+    public String getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(String cityId) {
+        this.cityId = cityId;
+    }
+
+    public String getAreaId() {
+        return areaId;
+    }
+
+    public void setAreaId(String areaId) {
+        this.areaId = areaId;
     }
 
     public String getProjectAddr() {
@@ -205,6 +245,9 @@ public class Project implements Serializable {
         Project other = (Project) that;
         return (this.getProjectId() == null ? other.getProjectId() == null : this.getProjectId().equals(other.getProjectId()))
             && (this.getProjectName() == null ? other.getProjectName() == null : this.getProjectName().equals(other.getProjectName()))
+            && (this.getProvincialId() == null ? other.getProvincialId() == null : this.getProvincialId().equals(other.getProvincialId()))
+            && (this.getCityId() == null ? other.getCityId() == null : this.getCityId().equals(other.getCityId()))
+            && (this.getAreaId() == null ? other.getAreaId() == null : this.getAreaId().equals(other.getAreaId()))
             && (this.getProjectAddr() == null ? other.getProjectAddr() == null : this.getProjectAddr().equals(other.getProjectAddr()))
             && (this.getProjectLogoUrl() == null ? other.getProjectLogoUrl() == null : this.getProjectLogoUrl().equals(other.getProjectLogoUrl()))
             && (this.getProjectLocation() == null ? other.getProjectLocation() == null : this.getProjectLocation().equals(other.getProjectLocation()))
@@ -225,6 +268,9 @@ public class Project implements Serializable {
         int result = 1;
         result = prime * result + ((getProjectId() == null) ? 0 : getProjectId().hashCode());
         result = prime * result + ((getProjectName() == null) ? 0 : getProjectName().hashCode());
+        result = prime * result + ((getProvincialId() == null) ? 0 : getProvincialId().hashCode());
+        result = prime * result + ((getCityId() == null) ? 0 : getCityId().hashCode());
+        result = prime * result + ((getAreaId() == null) ? 0 : getAreaId().hashCode());
         result = prime * result + ((getProjectAddr() == null) ? 0 : getProjectAddr().hashCode());
         result = prime * result + ((getProjectLogoUrl() == null) ? 0 : getProjectLogoUrl().hashCode());
         result = prime * result + ((getProjectLocation() == null) ? 0 : getProjectLocation().hashCode());
@@ -248,6 +294,9 @@ public class Project implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", projectId=").append(projectId);
         sb.append(", projectName=").append(projectName);
+        sb.append(", provincialId=").append(provincialId);
+        sb.append(", cityId=").append(cityId);
+        sb.append(", areaId=").append(areaId);
         sb.append(", projectAddr=").append(projectAddr);
         sb.append(", projectLogoUrl=").append(projectLogoUrl);
         sb.append(", projectLocation=").append(projectLocation);

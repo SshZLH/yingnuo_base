@@ -2,8 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ynkd.base.dao.business.ProjectDAO">
   <resultMap id="BaseResultMap" type="com.ynkd.base.model.business.Project">
-    <id column="project_id" jdbcType="INTEGER" property="projectId" />
+    <id column="project_id" jdbcType="VARCHAR" property="projectId" />
     <result column="project_name" jdbcType="VARCHAR" property="projectName" />
+    <result column="provincial_id" jdbcType="VARCHAR" property="provincialId" />
+    <result column="city_id" jdbcType="VARCHAR" property="cityId" />
+    <result column="area_id" jdbcType="VARCHAR" property="areaId" />
     <result column="project_addr" jdbcType="VARCHAR" property="projectAddr" />
     <result column="project_logo_url" jdbcType="VARCHAR" property="projectLogoUrl" />
     <result column="project_location" jdbcType="VARCHAR" property="projectLocation" />
@@ -76,9 +79,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    project_id, project_name, project_addr, project_logo_url, project_location, project_leader, 
-    manage_name, panel_name, project_memo, id_delete, create_at, create_by, update_at, 
-    update_by
+    project_id, project_name, provincial_id, city_id, area_id, project_addr, project_logo_url, 
+    project_location, project_leader, manage_name, panel_name, project_memo, id_delete, 
+    create_at, create_by, update_at, update_by
   </sql>
   <select id="selectByExample" parameterType="com.ynkd.base.model.business.ProjectExample" resultMap="BaseResultMap">
     select
@@ -102,15 +105,15 @@
       </if>
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from project
-    where project_id = #{projectId,jdbcType=INTEGER}
+    where project_id = #{projectId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from project
-    where project_id = #{projectId,jdbcType=INTEGER}
+    where project_id = #{projectId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.ynkd.base.model.business.ProjectExample">
     delete from project
@@ -119,12 +122,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.ynkd.base.model.business.Project">
-    insert into project (project_id, project_name, project_addr, 
+    insert into project (project_id, project_name, provincial_id, 
+      city_id, area_id, project_addr, 
       project_logo_url, project_location, project_leader, 
       manage_name, panel_name, project_memo, 
       id_delete, create_at, create_by, 
       update_at, update_by)
-    values (#{projectId,jdbcType=INTEGER}, #{projectName,jdbcType=VARCHAR}, #{projectAddr,jdbcType=VARCHAR}, 
+    values (#{projectId,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, #{provincialId,jdbcType=VARCHAR}, 
+      #{cityId,jdbcType=VARCHAR}, #{areaId,jdbcType=VARCHAR}, #{projectAddr,jdbcType=VARCHAR}, 
       #{projectLogoUrl,jdbcType=VARCHAR}, #{projectLocation,jdbcType=VARCHAR}, #{projectLeader,jdbcType=VARCHAR}, 
       #{manageName,jdbcType=VARCHAR}, #{panelName,jdbcType=VARCHAR}, #{projectMemo,jdbcType=VARCHAR}, 
       #{idDelete,jdbcType=INTEGER}, #{createAt,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
@@ -138,6 +143,15 @@
       </if>
       <if test="projectName != null">
         project_name,
+      </if>
+      <if test="provincialId != null">
+        provincial_id,
+      </if>
+      <if test="cityId != null">
+        city_id,
+      </if>
+      <if test="areaId != null">
+        area_id,
       </if>
       <if test="projectAddr != null">
         project_addr,
@@ -178,10 +192,19 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="projectId != null">
-        #{projectId,jdbcType=INTEGER},
+        #{projectId,jdbcType=VARCHAR},
       </if>
       <if test="projectName != null">
         #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="provincialId != null">
+        #{provincialId,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null">
+        #{cityId,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null">
+        #{areaId,jdbcType=VARCHAR},
       </if>
       <if test="projectAddr != null">
         #{projectAddr,jdbcType=VARCHAR},
@@ -231,10 +254,19 @@
     update project
     <set>
       <if test="record.projectId != null">
-        project_id = #{record.projectId,jdbcType=INTEGER},
+        project_id = #{record.projectId,jdbcType=VARCHAR},
       </if>
       <if test="record.projectName != null">
         project_name = #{record.projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.provincialId != null">
+        provincial_id = #{record.provincialId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cityId != null">
+        city_id = #{record.cityId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaId != null">
+        area_id = #{record.areaId,jdbcType=VARCHAR},
       </if>
       <if test="record.projectAddr != null">
         project_addr = #{record.projectAddr,jdbcType=VARCHAR},
@@ -279,8 +311,11 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update project
-    set project_id = #{record.projectId,jdbcType=INTEGER},
+    set project_id = #{record.projectId,jdbcType=VARCHAR},
       project_name = #{record.projectName,jdbcType=VARCHAR},
+      provincial_id = #{record.provincialId,jdbcType=VARCHAR},
+      city_id = #{record.cityId,jdbcType=VARCHAR},
+      area_id = #{record.areaId,jdbcType=VARCHAR},
       project_addr = #{record.projectAddr,jdbcType=VARCHAR},
       project_logo_url = #{record.projectLogoUrl,jdbcType=VARCHAR},
       project_location = #{record.projectLocation,jdbcType=VARCHAR},
@@ -302,6 +337,15 @@
     <set>
       <if test="projectName != null">
         project_name = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="provincialId != null">
+        provincial_id = #{provincialId,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null">
+        city_id = #{cityId,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null">
+        area_id = #{areaId,jdbcType=VARCHAR},
       </if>
       <if test="projectAddr != null">
         project_addr = #{projectAddr,jdbcType=VARCHAR},
@@ -340,11 +384,14 @@
         update_by = #{updateBy,jdbcType=VARCHAR},
       </if>
     </set>
-    where project_id = #{projectId,jdbcType=INTEGER}
+    where project_id = #{projectId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.ynkd.base.model.business.Project">
     update project
     set project_name = #{projectName,jdbcType=VARCHAR},
+      provincial_id = #{provincialId,jdbcType=VARCHAR},
+      city_id = #{cityId,jdbcType=VARCHAR},
+      area_id = #{areaId,jdbcType=VARCHAR},
       project_addr = #{projectAddr,jdbcType=VARCHAR},
       project_logo_url = #{projectLogoUrl,jdbcType=VARCHAR},
       project_location = #{projectLocation,jdbcType=VARCHAR},
@@ -357,6 +404,6 @@
       create_by = #{createBy,jdbcType=VARCHAR},
       update_at = #{updateAt,jdbcType=VARCHAR},
       update_by = #{updateBy,jdbcType=VARCHAR}
-    where project_id = #{projectId,jdbcType=INTEGER}
+    where project_id = #{projectId,jdbcType=VARCHAR}
   </update>
 </mapper>
