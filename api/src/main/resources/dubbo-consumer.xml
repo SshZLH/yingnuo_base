@@ -20,4 +20,11 @@
     <dubbo:registry protocol="zookeeper" address="${zk.address}" check="false" />
     <!-- 消费服务 -->
     <dubbo:reference id="healthService" interface="com.ynkd.base.service.base.HealthService"/>
+
+
+    <!--shiro module   -  @author Mind  -  @Date 10.25    -->
+    <dubbo:reference id="baseLoginService" interface="com.ynkd.base.service.shiro.BaseLoginService"                 url="dubbo://localhost:20880"/>
+    <dubbo:reference id="baseUserService" interface="com.ynkd.base.service.shiro.BaseUserService"                   url="dubbo://localhost:20880"/>
+    <dubbo:reference id="basePermissionService" interface="com.ynkd.base.service.shiro.BasePermissionService"       url="dubbo://localhost:20880"/>
+
 </beans>
